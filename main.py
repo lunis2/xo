@@ -1,5 +1,6 @@
 GAME_IS_RUNNING = True
 PLAYER_MARK = "X"
+TURN = 0
 
 board_map = [[" ", " ", " "],
              [" ", " ", " "],
@@ -38,7 +39,7 @@ def get_user_choice(value, player):
         if 3 > x >= 0:
             return x
         else:
-            print("Out of boundaries")
+            print("Out of boundaries. Please select number from 0 to 2")
             get_user_choice(value, player)
 
     except ValueError:
@@ -48,7 +49,13 @@ def get_user_choice(value, player):
 
 def check_winning_combination(board):
     # Checking rows
+    global TURN
     global GAME_IS_RUNNING
+    TURN += 1
+    if TURN == 9:
+        print()
+        print("No winner today. Game Over.")
+        GAME_IS_RUNNING = False
     for row in range(0, 3):
         if board[row][0] == board[row][1] == board[row][2] == "X":
             print("Congratulations! Player X won!")
@@ -104,6 +111,5 @@ while GAME_IS_RUNNING:
     print_board()
     check_winning_combination(board_map)
     switch_player(PLAYER_MARK)
-
 
 
